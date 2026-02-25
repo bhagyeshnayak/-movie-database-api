@@ -1,7 +1,4 @@
 from django.urls import path
-from .views import MovieSearchView
-from .views import MovieSearchView
-from .views import MovieSearchView
 from .views import (
     MovieListCreateView,
     MovieDetailView,
@@ -12,7 +9,8 @@ from .views import (
     WatchlistView,
     FavoriteView,
     ImportMovieFromTMDBView,
-    ImportIMDBAPIView,   # ⭐ IMPORTANT
+    ImportIMDBAPIView,
+    MovieSearchView,
 )
 
 urlpatterns = [
@@ -37,13 +35,10 @@ urlpatterns = [
     path("favorites/", FavoriteView.as_view()),
     path("favorites/<int:movie_id>/", FavoriteView.as_view()),
 
-    # ================= TMDB IMPORT =================
+    # ================= IMPORT =================
     path("movies/import/", ImportMovieFromTMDBView.as_view()),
-
-    # ⭐ ⭐ ⭐ IMDb BULK IMPORT ⭐ ⭐ ⭐
     path("import-imdb/", ImportIMDBAPIView.as_view(), name="import-imdb"),
-    # ================= MOVIE SEARCH =================
-    path("movies/search/", MovieSearchView.as_view(), name="movie-search"),
-    path("search/", MovieSearchView.as_view(), name="movie-search"),
-    path("search/", MovieSearchView.as_view(), name="movie-search"),
+
+    # ================= SEARCH =================
+  path("movies/search/", MovieSearchView.as_view(), name="movie-search"),
 ]

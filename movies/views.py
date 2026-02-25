@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+import requests
 
 from .models import Movie, Genre, Review, Watchlist, Favorite
 from .serializers import (
@@ -270,3 +272,23 @@ class MovieSearchView(ListAPIView):
             qs = qs.filter(genres__name__icontains=genre)
 
         return qs.distinct()
+    
+def home(request):
+
+    query = request.GET.get("q")
+    movies = []
+
+    if query:
+        try:
+            response = requests.get(
+                f"http://127.0.0.1:8000/api/v1/search/?q={query}"
+            )
+            data = response.json()
+            movies = data.get("results", [])
+        except:
+            movies = []
+
+    return render(request, "index.html", {
+        "movies": movies,
+        "query": query
+    })

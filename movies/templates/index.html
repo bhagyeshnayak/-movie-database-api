@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Database</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+
+        input {
+            padding: 8px;
+            width: 300px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .movie {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🎬 Movie Database</h1>
+
+<input type="text" id="searchInput" placeholder="Search movie...">
+<button onclick="searchMovie()">Search</button>
+
+<div id="results"></div>
+
+<script>
+
+async function searchMovie() {
+
+    const query = document.getElementById("searchInput").value;
+
+    const response = await fetch(
+        `http://127.0.0.1:8000/api/v1/movies/search/?q=${query}`
+    );
+
+    const data = await response.json();
+
+    const resultsDiv = document.getElementById("results");
+
+    resultsDiv.innerHTML = "";
+
+    if (data.results.length === 0) {
+        resultsDiv.innerHTML = "<p>No movies found.</p>";
+        return;
+    }
+
+    data.results.forEach(movie => {
+
+        const genres = movie.genres
+            .map(g => g.name)
+            .join(", ");
+
+        resultsDiv.innerHTML += `
+            <div class="movie">
+                <h3>${movie.title}</h3>
+                <p>⭐ Rating: ${movie.vote_average}</p>
+                <p>🎭 Genres: ${genres}</p>
+            </div>
+        `;
+    });
+}
+
+</script>
+
+</body>
+</html>
