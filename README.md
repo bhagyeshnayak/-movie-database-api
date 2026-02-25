@@ -35,4 +35,20 @@ A Django REST Framework based Movie Database API with authentication, search, re
 
 ```bash
 git clone https://github.com/bhagyeshnayak/-movie-database-api.git
+
 cd movie-database-api
+How Someone Uses Your README (Real Flow)
+Step 1 — Open Terminal
+git clone https://github.com/bhagyeshnayak/-movie-database-api.git
+⬇ downloads project
+Step 2 — Enter Project
+cd movie-database-api
+Step 3 — Activate Environment
+python -m venv venv
+venv\Scripts\activate
+Step 4 — Install Packages
+pip install -r requirements.txt
+Step 5 — Run Database
+python manage.py migrate
+Step 6 — Start Server
+python manage.py runserve
