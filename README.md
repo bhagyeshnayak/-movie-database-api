@@ -20,7 +20,7 @@ A Django REST Framework based Movie Database API with authentication, search, re
 
 ## 🛠 Tech Stack
 
-- Python
+- Python venv
 - Django
 - Django REST Framework
 - MySQL
